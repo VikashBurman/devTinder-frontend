@@ -8,24 +8,29 @@ const NavBar = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogout =async()=>{
+  const handleLogout = async () => {
     try {
-      const res = await axios.post(BASE_URL+"/logout",{},{
-        withCredentials:true
-      });
-      // console.log(res.data.message);  
+      await axios.post(
+        BASE_URL + "/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      // console.log(res.data.message);
       dispatch(removerUser());
       navigate("/login");
-      
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <div className="navbar bg-base-100 shadow-md px-4">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">devTinder</Link>
+        <Link to="/" className="btn btn-ghost text-xl">
+          devTinder
+        </Link>
       </div>
       <div className="flex-none gap-4">
         {user && (
@@ -51,7 +56,7 @@ const NavBar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <Link to="/profile"className="justify-between">
+                <Link to="/profile" className="justify-between">
                   Profile
                   <span className="badge">New</span>
                 </Link>
