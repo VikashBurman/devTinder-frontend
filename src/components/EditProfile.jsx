@@ -4,6 +4,7 @@ import { BASE_URL } from "../utils/constant";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import PropTypes from "prop-types";
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
@@ -157,6 +158,19 @@ const EditProfile = ({ user }) => {
       </>
     )
   );
+};
+
+//to solve error missing in props validation
+EditProfile.propTypes = {
+  user: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    photoUrl: PropTypes.string,
+    skills: PropTypes.arrayOf(PropTypes.string),
+    age: PropTypes.number,
+    about: PropTypes.string,
+    gender: PropTypes.string,
+  }),
 };
 
 export default EditProfile;

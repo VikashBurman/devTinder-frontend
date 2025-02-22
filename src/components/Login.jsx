@@ -5,8 +5,8 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [emailId, setEmail] = useState("rahul@gmail.com");
-  const [password, setPassword] = useState("Rahul@123");
+  const [emailId, setEmail] = useState("vikash@gmail.com");
+  const [password, setPassword] = useState("Vikash@123");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogin = async (e) => {
