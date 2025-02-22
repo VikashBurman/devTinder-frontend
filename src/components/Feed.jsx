@@ -7,12 +7,12 @@ import FeedCard from "./FeedCard";
 
 const Feed = () => {
   const dispatch = useDispatch();
-  const feedData = useSelector((store)=>store.feed);
+  const feedData = useSelector((store) => store.feed);
   // console.log(feedData);
-  
+
   const fetchFeed = async () => {
     try {
-      if(feedData){
+      if (feedData) {
         return;
       }
       const feed = await axios.get(BASE_URL + "/feed", {
@@ -26,11 +26,15 @@ const Feed = () => {
   };
   useEffect(() => {
     fetchFeed();
-  },[])
-  return feedData &&  (
-  <>
-    <FeedCard user = {feedData[0]}/>
-  </>
+  }, []);
+  if (!feedData) return;
+  if (feedData.length === 0) {
+    return <h1 >NO MORE USER DATA </h1>;
+  }
+  return feedData && (
+    <>
+      <FeedCard user={feedData[0]} />
+    </>
   );
 };
 

@@ -1,17 +1,32 @@
-
 import PropTypes from "prop-types";
-const FeedCard = ({ user }) => {
-  // console.log(user);
+import { BASE_URL } from "../utils/constant";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { removeFeed } from "../utils/feedSlice";
 
-  // if(!user){
-  //   return <h1 className="text-white text-2xl">No user found</h1>;
-  // }
-  const { firstName, lastName, photoUrl, skills, age, gender, about } = user;
+const FeedCard = ({ user }) => {
+  const dispatch = useDispatch();
+  const handleFeed=async(status,userId)=>{
+    try{
+      const res = await axios.post(BASE_URL+"/request/send/"+status+"/"+userId,{},{withCredentials:true});
+      // console.log(res.data);
+      dispatch(removeFeed(userId));
+      
+    }catch(error){
+      console.error(error);
+    }
+  }
+  // console.log(user);
+  if(!user){
+    return <h1 className="text-white text-2xl">No user found</h1>;
+  }
+
+  const { _id, firstName, lastName, photoUrl, skills, age, gender, about } =
+    user;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div className="bg-gray-800 text-white shadow-lg rounded-2xl p-6 w-96">
-        
         {/* Profile Picture */}
         <div className="flex justify-center">
           <img
@@ -27,7 +42,6 @@ const FeedCard = ({ user }) => {
         </h2>
         <p className="text-sm text-gray-400 text-center mt-1">{about}</p>
 
-        {/* Age & Gender */}
         <div className="mt-4 flex justify-center gap-6 text-gray-300">
           <p>
             <span className="font-semibold text-white">Age:</span> {age}
@@ -37,18 +51,24 @@ const FeedCard = ({ user }) => {
           </p>
         </div>
 
-        {/* Skills Section */}
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
-          {skills}
-        </div>
+        <div className="mt-4 flex flex-wrap justify-center gap-2">{skills}</div>
 
-        {/* Buttons */}
         <div className="mt-6 flex justify-between px-4">
-          <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md">
-            ❌ Reject
+          <button
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md"
+            onClick={() => {
+              handleFeed("ignored", _id);
+            }}
+          >
+            Ignored
           </button>
-          <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-md">
-            ✅ Accept
+          <button
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-md"
+            onClick={() => {
+              handleFeed("interested", _id);
+            }}
+          >
+            Interested
           </button>
         </div>
       </div>
@@ -58,6 +78,7 @@ const FeedCard = ({ user }) => {
 
 FeedCard.propTypes = {
   user: PropTypes.shape({
+    _id: PropTypes.string,
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     photoUrl: PropTypes.string,
