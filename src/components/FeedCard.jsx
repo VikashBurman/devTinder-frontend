@@ -2,7 +2,10 @@
 import PropTypes from "prop-types";
 const FeedCard = ({ user }) => {
   // console.log(user);
-  
+
+  // if(!user){
+  //   return <h1 className="text-white text-2xl">No user found</h1>;
+  // }
   const { firstName, lastName, photoUrl, skills, age, gender, about } = user;
 
   return (

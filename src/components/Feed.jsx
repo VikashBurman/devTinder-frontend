@@ -29,7 +29,7 @@ const Feed = () => {
   },[])
   return feedData &&  (
   <>
-    <FeedCard user = {feedData[1]}/>
+    <FeedCard user = {feedData[0]}/>
   </>
   );
 };
