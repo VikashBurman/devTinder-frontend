@@ -26,53 +26,74 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-md px-4">
+    <div className="navbar bg-gray-900 shadow-lg border-b border-gray-700 px-8 py-4 text-white">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">
-          devTinder
+        <Link
+          to="/feed"
+          className="text-3xl font-extrabold text-pink-400 hover:text-pink-300 transition-all"
+        >
+          QuickMatch
         </Link>
       </div>
-      <div className="flex-none gap-4">
+
+      <div className="flex-none">
         {user && (
           <div className="dropdown dropdown-end">
-            <div className="flex items-center gap-3">
-              <p className="text-lg font-medium">Welcome, {user.firstName}</p>
+            <div className="flex items-center gap-6">
+              <p className="text-lg font-semibold text-gray-300">
+                Hi, {user.firstName}{" "}
+              </p>
+
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar"
+                className="btn btn-ghost btn-circle avatar border-2 border-pink-500 hover:border-pink-400 transition-all shadow-lg"
               >
-                <div className="w-10 h-10 rounded-full overflow-hidden">
+                <div className="w-14 h-14 rounded-full overflow-hidden">
                   <img
                     alt="User Profile"
                     src={user.photoUrl}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover shadow-md"
                   />
                 </div>
               </div>
             </div>
+
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-gray-800 rounded-xl z-50 mt-4 w-56 p-3 shadow-xl border border-gray-600"
             >
               <li>
-                <Link to="/profile" className="justify-between">
-                  Profile
+                <Link
+                  to="/profile"
+                  className="flex items-center gap-3 hover:bg-gray-700 rounded-lg px-4 py-2"
+                >
+                  🏠 <span className="text-gray-200">Profile</span>
                 </Link>
               </li>
               <li>
-                <Link to="/connections" className="justify-between">
-                  Connections
+                <Link
+                  to="/connections"
+                  className="flex items-center gap-3 hover:bg-gray-700 rounded-lg px-4 py-2"
+                >
+                  🔗 <span className="text-gray-200">Connections</span>
                 </Link>
               </li>
               <li>
-                <Link to="/requests" className="justify-between">
-                  Requests
+                <Link
+                  to="/requests"
+                  className="flex items-center gap-3 hover:bg-gray-700 rounded-lg px-4 py-2"
+                >
+                  📩 <span className="text-gray-200">Requests</span>
                 </Link>
               </li>
-
               <li>
-                <a onClick={handleLogout}>Logout</a>
+                <a
+                  onClick={handleLogout}
+                  className="text-red-400 hover:bg-red-600 hover:text-white rounded-lg px-4 py-2 flex items-center gap-3 transition-all"
+                >
+                  🚪 Logout
+                </a>
               </li>
             </ul>
           </div>

@@ -5,7 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { BASE_URL } from "../utils/constant";
-// import Footer from "./Footer";
+import Footer from "./Footer";
 
 
 
@@ -34,7 +34,7 @@ const Body = () => {
     <>
       <NavBar />
       <Outlet/>
-      {/* <Footer/> */}
+      <Footer/>
     </>
   );
 };

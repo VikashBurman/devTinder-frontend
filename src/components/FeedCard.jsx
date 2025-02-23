@@ -8,7 +8,7 @@ const FeedCard = ({ user }) => {
   const dispatch = useDispatch();
   const handleFeed=async(status,userId)=>{
     try{
-      const res = await axios.post(BASE_URL+"/request/send/"+status+"/"+userId,{},{withCredentials:true});
+      await axios.post(BASE_URL+"/request/send/"+status+"/"+userId,{},{withCredentials:true});
       // console.log(res.data);
       dispatch(removeFeed(userId));
       
@@ -25,54 +25,54 @@ const FeedCard = ({ user }) => {
     user;
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900">
-      <div className="bg-gray-800 text-white shadow-lg rounded-2xl p-6 w-96">
-        {/* Profile Picture */}
-        <div className="flex justify-center">
-          <img
-            src={photoUrl}
-            alt={`${firstName} ${lastName}`}
-            className="w-28 h-28 object-cover rounded-full border-4 border-blue-500 shadow-lg"
-          />
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 px-6">
+    <div className="bg-gray-800 text-white shadow-2xl rounded-2xl w-[50rem] h-[26rem] border border-gray-700 flex overflow-hidden">
+      
+      {/* User Info Section */}
+      <div className="flex-1 flex flex-col justify-center px-10 space-y-4">
+        <h2 className="text-4xl font-bold text-white">{firstName} {lastName}</h2>
+        <p className="text-lg text-gray-300 leading-relaxed">{about}</p>
+  
+        <div className="flex space-x-8 text-lg text-gray-300">
+          <p><span className="font-semibold text-white">Age:</span> {age}</p>
+          <p><span className="font-semibold text-white">Gender:</span> {gender}</p>
         </div>
-
-        {/* Name & About */}
-        <h2 className="mt-4 text-2xl font-bold text-center text-gray-100">
-          {firstName} {lastName}
-        </h2>
-        <p className="text-sm text-gray-400 text-center mt-1">{about}</p>
-
-        <div className="mt-4 flex justify-center gap-6 text-gray-300">
-          <p>
-            <span className="font-semibold text-white">Age:</span> {age}
-          </p>
-          <p>
-            <span className="font-semibold text-white">Gender:</span> {gender}
-          </p>
+  
+        <div className="mt-2 flex flex-wrap gap-3">
+          {skills}
         </div>
-
-        <div className="mt-4 flex flex-wrap justify-center gap-2">{skills}</div>
-
-        <div className="mt-6 flex justify-between px-4">
+  
+        <div className="mt-6 flex gap-6">
           <button
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md"
-            onClick={() => {
-              handleFeed("ignored", _id);
-            }}
+            className="w-1/2 py-3 rounded-lg text-white font-semibold text-lg bg-red-500 hover:bg-red-600 transition-all transform hover:scale-105 shadow-md"
+            onClick={() => handleFeed("ignored", _id)}
           >
-            Ignored
+            Ignore
           </button>
           <button
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-md"
-            onClick={() => {
-              handleFeed("interested", _id);
-            }}
+            className="w-1/2 py-3 rounded-lg text-white font-semibold text-lg bg-green-500 hover:bg-green-600 transition-all transform hover:scale-105 shadow-md"
+            onClick={() => handleFeed("interested", _id)}
           >
             Interested
           </button>
         </div>
       </div>
+  
+      {/* Image Section */}
+      <div className="w-[45%] h-full bg-gray-700">
+        <img
+          src={photoUrl}
+          alt={`${firstName} ${lastName}`}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      
     </div>
+  </div>
+  
+
+
+
   );
 };
 
